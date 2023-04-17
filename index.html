@@ -10,32 +10,34 @@
 </head>
 <body>
     <div class="calcBody">
-        <div class="display">432.21</div>
+        <div class="display">
+            <p id="display"></p>
+        </div>
         <div class="controls">
             <div class="row" id="row1">
                 <button class="btn" id="clear">Clear</button>
                 <button class ="btn oper" id="divide">/</button>
             </div>
             <div class="row" id="row2">
-                <button class="btn digit" id="n7">7</button>
-                <button class="btn digit" id="n8">8</button>
-                <button class="btn digit" id="n9">9</button>
+                <button class="btn digit" id="n7" data-int="7">7</button>
+                <button class="btn digit" id="n8" data-int="8">8</button>
+                <button class="btn digit" id="n9" data-int="9">9</button>
                 <button class="btn oper" id="multiply">x</button>
             </div>
             <div class="row" id="row3">
-                <button class="btn digit" id="n4">4</button>
-                <button class="btn digit" id="n5">5</button>
-                <button class="btn digit" id="n6">6</button>
+                <button class="btn digit" id="n4" data-int="4">4</button>
+                <button class="btn digit" id="n5" data-int="5">5</button>
+                <button class="btn digit" id="n6" data-int="6">6</button>
                 <button class="btn oper" id="subtract">-</button>
             </div>
             <div class="row" id="row4">
-                <button class="btn digit" id="n1">1</button>
-                <button class="btn digit" id="n2">2</button>
-                <button class="btn digit" id="n3">3</button>
+                <button class="btn digit" id="n1" data-int="1">1</button>
+                <button class="btn digit" id="n2" data-int="2">2</button>
+                <button class="btn digit" id="n3" data-int="3">3</button>
                 <button class="btn oper" id="add">+</button>
             </div>
             <div class="row" id="row5">
-                <button class="btn digit" id="n0">0</button>
+                <button class="btn digit" id="n0" data-int="0">0</button>
                 <button class="btn" id="equals">=</button>
             </div>
         </div>

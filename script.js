@@ -36,3 +36,33 @@ function operate(x, oper, y) {
             break;
     }
 }
+
+let displayVal = "0";
+let display = document.querySelector('.display');
+let displayContent = document.createElement('p');
+displayContent.textContent = displayVal;
+display.appendChild(displayContent);
+
+function clearDisplay() {
+    displayVal = "0";
+    displayContent.textContent = displayVal;
+}
+
+function addToDisplay(e) {
+    let int = e.target.getAttribute("data-int");
+    if (displayVal === "0") {
+        displayVal = `${int}`;
+        displayContent.textContent = displayVal;
+    } else {
+        displayVal = displayVal + int;
+        displayContent.textContent = displayVal;
+    }
+}
+
+let digits = document.querySelectorAll('.digit');
+digits.forEach(btn => {
+    btn.addEventListener('click', addToDisplay);
+});
+
+let clear = document.querySelector('#clear');
+clear.addEventListener('click', clearDisplay);

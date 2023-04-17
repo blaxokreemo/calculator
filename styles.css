@@ -24,7 +24,6 @@ body {
 .row {
     display: flex;
     padding: 2px;
-    margin: 2px;
 }
 
 .btn {
@@ -34,7 +33,7 @@ body {
     font-weight: bold;
     padding: 6px;
     flex: 1;
-    margin: 2px;
+    margin: 4px;
 }
 
 .row #divide {
