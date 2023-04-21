@@ -5,16 +5,28 @@ body {
 
 .calcBody {
     width: 600px;
-    border: black solid 3px;
+    /*border: rgb(54, 146, 243) solid 3px;*/
+    background-color: rgb(40, 133, 233);
     padding: 10px;
+    border-radius: 20px;
+}
+
+.calcOutline {
+    width: 620px;
+    padding: 20px;
+    background-color: rgb(108, 167, 231);
+    border-radius: 20px;
 }
 
 .display {
     height: 100px;
+    background-color: black;
     border: black solid 4px;
+    border-radius: 10px;
     padding: 4px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Martian Mono', monospace;
     font-size: 72px;
+    color: rgb(173, 213, 255);
     margin: 4px;
     display: flex;
     align-items: center;
@@ -28,12 +40,14 @@ body {
 
 .btn {
     height: 100px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Martian Mono', monospace;
     font-size: 24px;
+    background-color: rgb(209, 231, 255);
     font-weight: bold;
     padding: 6px;
     flex: 1;
     margin: 4px;
+    border-radius: 10px;
 }
 
 .row #divide {
@@ -44,15 +58,15 @@ body {
     flex: 1;
 }
 
-#clear {
+#clear.btn {
     flex: 3;
-    background-color: red;
+    background-color: rgb(231, 116, 108);
     color: white;
 }
 
-#equals {
-    background-color: green;
-    color: white;
+#equals.btn {
+    background-color: rgb(108, 231, 180);
+    color: black;
     flex: 3;
 }
 

@@ -18,6 +18,7 @@ let leftNum = "";
 let rightNum = "";
 let operator = "";
 let opSwitch = false;
+let lastResult = "";
 
 function operate(x, oper, y) {
     x = parseInt(x);
@@ -59,6 +60,7 @@ function clearDisplay() {
 }
 
 function addToDisplay(e) {
+    lastResult = "";
     let int = e.target.getAttribute("data-int");
     opSwitch = false;
     if (displayVal === "0") {
@@ -86,7 +88,13 @@ opers.forEach(btn => {
 });
 
 function beginOp(e) {
-    if (leftNum === "") {
+    if (lastResult != "") {
+        operator = e.target.getAttribute("data-oper");
+        leftNum = lastResult;
+        opSwitch = true;
+        lastResult = "";
+        displayVal = "0";
+    } else if (leftNum === "") {
         operator = e.target.getAttribute("data-oper");
         leftNum = displayVal;
         displayVal = "0";
@@ -107,6 +115,11 @@ equals.addEventListener('click', () => {
         rightNum = displayVal;
         displayVal = operate(leftNum, operator, rightNum);
         displayContent.textContent = displayVal;
+        lastResult = displayVal;
+        displayVal = "0";
+        operator = "";
+        leftNum = "";
+        rightNum = "";
     } else {
         return;
     }
