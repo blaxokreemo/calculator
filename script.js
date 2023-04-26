@@ -100,7 +100,9 @@ function beginOp(e) {
         opSwitch = true;
         lastResult = "";
         displayVal = "0";
-    } else if (leftNum === "") {
+    } else if (opSwitch === true) {
+        operator = e.target.getAttribute("data-oper");
+    }  else if (leftNum === "") {
         operator = e.target.getAttribute("data-oper");
         leftNum = displayVal;
         displayVal = "0";
