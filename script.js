@@ -195,10 +195,8 @@ function keyPress(e) {
 }
 
 window.addEventListener('keydown', (e) => {
-    if (e.key === "/" || e.key === "'") {
-        e.preventDefault();
-        keyPress(e);
-    } else if (e.key === "Enter") {
+    e.preventDefault();
+    if (e.key === "Enter") {
         equals();
     } else if (e.key === "Backspace" || e.key === "Delete") {
         del();
