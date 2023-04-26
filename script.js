@@ -21,8 +21,8 @@ let opSwitch = false;
 let lastResult = "";
 
 function operate(x, oper, y) {
-    x = parseInt(x);
-    y = parseInt(y);
+    x = parseFloat(x);
+    y = parseFloat(y);
     switch (oper) {
         case "+":
             return roundDisplay(add(x, y));
@@ -64,11 +64,17 @@ function addToDisplay(e) {
     let int = e.target.getAttribute("data-int");
     opSwitch = false;
     if (displayVal === "0") {
-        displayVal = `${int}`;
-        displayContent.textContent = displayVal;
+        if (int === ".") {
+            displayVal = `0.`
+        } else {
+            displayVal = `${int}`;
+            displayContent.textContent = displayVal;
+        }
     } else if (displayVal.length > 10) {
         return;
-    }  else {
+    } else if (displayVal.includes(".") && int === ".") {
+        return;
+    } else {
         displayVal = displayVal + int;
         displayContent.textContent = displayVal;
     }

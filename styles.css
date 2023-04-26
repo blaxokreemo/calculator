@@ -59,7 +59,7 @@ body {
 }
 
 .row #n0 {
-    flex: 1;
+    flex: 2;
 }
 
 #del.btn {
@@ -78,5 +78,9 @@ body {
     background-color: rgb(108, 231, 180);
     color: black;
     flex: 3;
+}
+
+#decimal.btn {
+    flex: 1;
 }
 
