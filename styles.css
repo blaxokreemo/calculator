@@ -50,12 +50,22 @@ body {
     border-radius: 10px;
 }
 
+.btn.oper {
+    background-color: rgb(231, 202, 108);
+}
+
 .row #divide {
     flex: 1;
 }
 
 .row #n0 {
     flex: 1;
+}
+
+#del.btn {
+    flex: 1;
+    background-color: rgb(231, 75, 108);
+    color: white;
 }
 
 #clear.btn {

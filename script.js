@@ -66,7 +66,7 @@ function addToDisplay(e) {
     if (displayVal === "0") {
         displayVal = `${int}`;
         displayContent.textContent = displayVal;
-    } else if (displayVal.length > 13) {
+    } else if (displayVal.length > 10) {
         return;
     }  else {
         displayVal = displayVal + int;
@@ -125,15 +125,46 @@ equals.addEventListener('click', () => {
     }
 })
 
+let del = document.querySelector('#del');
+del.addEventListener('click', () => {
+    if (displayVal.length === 1) {
+        displayVal = "0";
+        displayContent.textContent = displayVal;
+    } else {
+        displayVal = displayVal.slice(0,-1);
+        displayContent.textContent = displayVal;
+    }
+})
+
 function roundDisplay(str) {
-    let sureStr = str.toString();
-    if (sureStr.length >= 14) {
+    let num = str.toLocaleString('fullwide', {useGrouping:false});
+    let strTest = str.toString();
+    let sureStr = strTest.substring(0, strTest.indexOf('.')).length > 10 ? num.toString() : strTest.toString();
+    let int = sureStr.includes('.') ? sureStr.substring(0, sureStr.indexOf('.')) : sureStr;
+    let float = sureStr.includes('.') ? sureStr.substring(sureStr.indexOf('.')) : "";
+    let rounded = "";
+    if (int.length > 10) {
+        let tail = int.length - 1;
+        rounded = `${int.charAt(0)}.${int.substring(1, 6)}E${tail}`;
+        return rounded;
+    } else if (sureStr.length > 11) {
+        trimmedFloat = float.substring(0, (11-int.length));
+        rounded = int.concat(trimmedFloat);
+        return rounded;
+    } else {
+        return sureStr;
+    }
+}
+/*
+
+
+    if (sureStr.length >= 11) {
         let int = sureStr.substring(0, sureStr.indexOf('.'));
-        if (int.length === 13) {
+        if (int.length === 10) {
             return int;
         } else {
             let float = sureStr.substring(sureStr.indexOf('.'));
-            let trim = 14 - int.length;
+            let trim = 11 - int.length;
             let trimmedFloat = float.substring(0, trim);
             return int.concat(trimmedFloat);
         }
@@ -141,6 +172,7 @@ function roundDisplay(str) {
         return sureStr;
     }
 }
+*/
 
 // Operations
 // What do I need to do?
