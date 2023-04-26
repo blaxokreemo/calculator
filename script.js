@@ -59,30 +59,31 @@ function clearDisplay() {
     operator = "";
 }
 
-function addToDisplay(e) {
+function addToDisplay(digit) {
     lastResult = "";
-    let int = e.target.getAttribute("data-int");
     opSwitch = false;
     if (displayVal === "0") {
-        if (int === ".") {
+        if (digit === ".") {
             displayVal = `0.`
         } else {
-            displayVal = `${int}`;
+            displayVal = `${digit}`;
             displayContent.textContent = displayVal;
         }
     } else if (displayVal.length > 10) {
         return;
-    } else if (displayVal.includes(".") && int === ".") {
+    } else if (displayVal.includes(".") && digit === ".") {
         return;
     } else {
-        displayVal = displayVal + int;
+        displayVal = displayVal + digit;
         displayContent.textContent = displayVal;
     }
 }
 
 let digits = document.querySelectorAll('.digit');
 digits.forEach(btn => {
-    btn.addEventListener('click', addToDisplay);
+    btn.addEventListener('click', (e) => {
+        addToDisplay(e.target.getAttribute('data-int'));
+    });
 });
 
 let clear = document.querySelector('#clear');
@@ -90,20 +91,21 @@ clear.addEventListener('click', clearDisplay);
 
 let opers = document.querySelectorAll('.oper');
 opers.forEach(btn => {
-    btn.addEventListener('click', beginOp)
+    btn.addEventListener('click', (e) => {beginOp(e.target.getAttribute("data-oper"));});
 });
 
-function beginOp(e) {
+function beginOp(oper) {
+
     if (lastResult != "") {
-        operator = e.target.getAttribute("data-oper");
+        operator = oper;
         leftNum = lastResult;
         opSwitch = true;
         lastResult = "";
         displayVal = "0";
     } else if (opSwitch === true) {
-        operator = e.target.getAttribute("data-oper");
+        operator = oper;
     }  else if (leftNum === "") {
-        operator = e.target.getAttribute("data-oper");
+        operator = oper;
         leftNum = displayVal;
         displayVal = "0";
         opSwitch = true;
@@ -112,13 +114,12 @@ function beginOp(e) {
         displayVal = leftNum;
         displayContent.textContent = displayVal;
         displayVal = "0";
-        operator = e.target.getAttribute("data-oper");
+        operator = oper;
         opSwitch = true;
     }   
 }
 
-let equals = document.querySelector('#equals');
-equals.addEventListener('click', () => {
+function equals() {
     if (operator != "" && opSwitch === false) {
         rightNum = displayVal;
         displayVal = operate(leftNum, operator, rightNum);
@@ -131,10 +132,12 @@ equals.addEventListener('click', () => {
     } else {
         return;
     }
-})
+}
 
-let del = document.querySelector('#del');
-del.addEventListener('click', () => {
+let equalsBtn = document.querySelector('#equals');
+equalsBtn.addEventListener('click', equals);
+
+function del() {
     if (displayVal.length === 1) {
         displayVal = "0";
         displayContent.textContent = displayVal;
@@ -142,9 +145,13 @@ del.addEventListener('click', () => {
         displayVal = displayVal.slice(0,-1);
         displayContent.textContent = displayVal;
     }
-})
+}
 
+let delBtn = document.querySelector('#del');
+delBtn.addEventListener('click', del)
 
+const oneToNine = new RegExp('[1-9]');
+const operList = new RegExp('[\\+-/\\.=\\*]')
 
 function roundDisplay(str) {
     let sureStr = str.toString();
@@ -155,7 +162,6 @@ function roundDisplay(str) {
         let ePos = sureStr.indexOf('e');
         let tail = sureStr.substring(ePos);
         rounded = `${sureStr.substring(0, 11-tail.length)}${tail}`;
-        const oneToNine = new RegExp('[1-9]');
         if (oneToNine.test(rounded.substring(2, 11-tail.length)) === false) {
             rounded = `${sureStr[0]}${tail}`
             return rounded;
@@ -175,6 +181,33 @@ function roundDisplay(str) {
     }
 }
 
+function keyPress(e) {
+    const key = e.key
+    if (oneToNine.test(key) || e.key === "0" || e.key === ".") {
+        addToDisplay(key);
+        return;
+    } else if (operList.test(key)) {
+        beginOp(key);
+        return;
+    } else {
+        return;
+    }
+}
+
+window.addEventListener('keydown', (e) => {
+    if (e.key === "/" || e.key === "'") {
+        e.preventDefault();
+        keyPress(e);
+    } else if (e.key === "Enter") {
+        equals();
+    } else if (e.key === "Backspace" || e.key === "Delete") {
+        del();
+    } else if (e.code === "Space") {
+        clearDisplay();
+    }
+
+    keyPress(e);
+})
 
 
 // Operations
