@@ -161,24 +161,7 @@ function roundDisplay(str) {
         return sureStr;
     }
 }
-/*
 
-
-    if (sureStr.length >= 11) {
-        let int = sureStr.substring(0, sureStr.indexOf('.'));
-        if (int.length === 10) {
-            return int;
-        } else {
-            let float = sureStr.substring(sureStr.indexOf('.'));
-            let trim = 11 - int.length;
-            let trimmedFloat = float.substring(0, trim);
-            return int.concat(trimmedFloat);
-        }
-    } else {
-        return sureStr;
-    }
-}
-*/
 
 // Operations
 // What do I need to do?
