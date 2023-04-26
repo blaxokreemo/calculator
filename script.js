@@ -145,6 +145,37 @@ del.addEventListener('click', () => {
 })
 
 function roundDisplay(str) {
+    let sureStr = str.toString();
+    let float = sureStr.includes('.') ? sureStr.substring(sureStr.indexOf('.')) : "";
+    let int = sureStr.includes('.') ? sureStr.substring(0, sureStr.indexOf('.')) : sureStr;
+    let rounded = "";
+    if (sureStr.includes('e') === true){
+        let ePos = sureStr.indexOf('e');
+        let tail = sureStr.substring(ePos);
+        rounded = `${sureStr.substring(0, 11-tail.length)}${tail}`;
+        const oneToNine = new RegExp([1-9]);
+        if (oneToNine.test(rounded.substring(2, 11-tail.length)) === false) {
+            rounded = `${sureStr[0]}${tail}`
+            return rounded;
+        } else {
+            return rounded;
+        }   
+    }  else if (int.length > 10) {
+        let tail = int.length - 1;
+        rounded = `${int.charAt(0)}.${int.substring(1, 6)}e${tail}`;
+        return rounded;
+    } else if (sureStr.length > 11) {
+        trimmedFloat = float.substring(0, (11-int.length));
+        rounded = int.concat(trimmedFloat);
+        return rounded;
+    } else {
+        return sureStr;
+    }
+}
+
+/*
+
+function roundDisplay(str) {
     let num = str.toLocaleString('fullwide', {useGrouping:false});
     let strTest = str.toString();
     let sureStr = strTest.substring(0, strTest.indexOf('.')).length > 10 ? num.toString() : strTest.toString();
@@ -156,13 +187,28 @@ function roundDisplay(str) {
         rounded = `${int.charAt(0)}.${int.substring(1, 6)}E${tail}`;
         return rounded;
     } else if (sureStr.length > 11) {
-        trimmedFloat = float.substring(0, (11-int.length));
-        rounded = int.concat(trimmedFloat);
-        return rounded;
+        if (float.substring(0, 8) === "0.0000000") {
+            let tail = 2;
+            let findDigit = false;
+            for (i = 2; i < sureStr.length && findDigit === false; i++) {
+                if (sureStr[i] === "0") {
+                    tail++;
+                } else {
+                    findDigit === true;
+                }
+            }
+            rounded = `${sureStr[tail]}.${sureStr[tail+1]}${sureStr[tail+2]}E-${tail+1}`;
+            return rounded;
+        } else {
+            trimmedFloat = float.substring(0, (11-int.length));
+            rounded = int.concat(trimmedFloat);
+            return rounded;
+        }
     } else {
         return sureStr;
     }
 }
+*/
 
 
 // Operations
