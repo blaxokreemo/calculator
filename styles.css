@@ -84,3 +84,28 @@ body {
     flex: 1;
 }
 
+.row > .btn.btn-over {
+    background-color: rgb(159, 198, 240);
+    color: white;
+}
+
+.row > .btn.oper.btn-over {
+    background-color: rgb(204, 178, 94);
+}
+
+#equals.btn.btn-over {
+    background-color:rgb(87, 190, 148);
+    color: white;
+}
+
+#clear.btn.btn-over {
+    background-color: rgb(231, 135, 129);
+    color: rgb(68, 67, 67);
+}
+
+#del.btn.btn-over {
+    background-color: rgb(235, 101, 130);
+    color: rgb(68, 67, 67);
+}
+
+

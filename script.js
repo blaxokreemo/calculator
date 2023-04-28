@@ -190,6 +190,12 @@ function del() {
     }
 }
 
+let btns = document.querySelectorAll('.btn');
+btns.forEach(btn => {
+        btn.addEventListener('mouseover', (e) => e.target.classList.add("btn-over"));
+        btn.addEventListener('mouseout', (e) => e.target.classList.remove("btn-over"))
+    });
+
 // KEYBOARD
 
 function keyPress(e) {
