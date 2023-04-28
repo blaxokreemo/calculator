@@ -148,10 +148,11 @@ function del() {
 }
 
 let delBtn = document.querySelector('#del');
-delBtn.addEventListener('click', del)
+delBtn.addEventListener('click', del);
 
 const oneToNine = new RegExp('[1-9]');
-const operList = new RegExp('[\\+-/\\.=\\*]')
+const zeroToNine = new RegExp('[0-9]');
+const operList = new RegExp('[\\+-/=\\*]');
 
 function roundDisplay(str) {
     let sureStr = str.toString();
@@ -183,7 +184,7 @@ function roundDisplay(str) {
 
 function keyPress(e) {
     const key = e.key
-    if (oneToNine.test(key) || e.key === "0" || e.key === ".") {
+    if (zeroToNine.test(key) || e.key === ".") {
         addToDisplay(key);
         return;
     } else if (operList.test(key)) {
@@ -195,16 +196,19 @@ function keyPress(e) {
 }
 
 window.addEventListener('keydown', (e) => {
-    e.preventDefault();
     if (e.key === "Enter") {
+        e.preventDefault();
         equals();
     } else if (e.key === "Backspace" || e.key === "Delete") {
+        e.preventDefault();
         del();
     } else if (e.code === "Space") {
+        e.preventDefault();
         clearDisplay();
+    } else if (zeroToNine.test(e.key) || operList.test(e.key)) {
+        e.preventDefault();
+        keyPress(e);
     }
-
-    keyPress(e);
 })
 
 
