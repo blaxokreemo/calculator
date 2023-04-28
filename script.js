@@ -1,98 +1,16 @@
-function add(x, y) {
-    return x + y;
-}
+// REGEX
 
-function substract(x, y) {
-    return x - y;
-}
+const oneToNine = new RegExp('[1-9]');
+const zeroToNine = new RegExp('[0-9]');
+const operList = new RegExp('[\\+-/=\\*]');
 
-function multiply (x, y) {
-    return x * y;
-}
-
-function divide(x, y) {
-    return x / y;
-}
+// MATH OPERATION
 
 let leftNum = "";
 let rightNum = "";
 let operator = "";
 let opSwitch = false;
 let lastResult = "";
-
-function operate(x, oper, y) {
-    x = parseFloat(x);
-    y = parseFloat(y);
-    switch (oper) {
-        case "+":
-            return roundDisplay(add(x, y));
-            break;
-        case "-":
-            return roundDisplay(substract(x, y));
-            break;
-        case "*":
-            return roundDisplay(multiply(x, y));
-            break;
-        case "/":
-            if (y === 0) {
-                return "You...can't";
-            } else {
-                return roundDisplay(divide(x, y));
-            }
-            break;
-        default:
-            break;
-    }
-}
-
-let displayVal = "0";
-let display = document.querySelector('.display');
-let displayContent = document.createElement('p');
-displayContent.textContent = displayVal;
-display.appendChild(displayContent);
-
-function clearDisplay() {
-    displayVal = "0";
-    displayContent.textContent = displayVal;
-    leftNum = "";
-    rightNum = "";
-    operator = "";
-}
-
-function addToDisplay(digit) {
-    lastResult = "";
-    opSwitch = false;
-    if (displayVal === "0") {
-        if (digit === ".") {
-            displayVal = `0.`
-        } else {
-            displayVal = `${digit}`;
-            displayContent.textContent = displayVal;
-        }
-    } else if (displayVal.length > 10) {
-        return;
-    } else if (displayVal.includes(".") && digit === ".") {
-        return;
-    } else {
-        displayVal = displayVal + digit;
-        displayContent.textContent = displayVal;
-    }
-}
-
-let digits = document.querySelectorAll('.digit');
-digits.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        addToDisplay(e.target.getAttribute('data-int'));
-    });
-});
-
-let clear = document.querySelector('#clear');
-clear.addEventListener('click', clearDisplay);
-
-let opers = document.querySelectorAll('.oper');
-opers.forEach(btn => {
-    btn.addEventListener('click', (e) => {beginOp(e.target.getAttribute("data-oper"));});
-});
 
 function beginOp(oper) {
 
@@ -119,40 +37,82 @@ function beginOp(oper) {
     }   
 }
 
-function equals() {
-    if (operator != "" && opSwitch === false) {
-        rightNum = displayVal;
-        displayVal = operate(leftNum, operator, rightNum);
-        displayContent.textContent = displayVal;
-        lastResult = displayVal;
-        displayVal = "0";
-        operator = "";
-        leftNum = "";
-        rightNum = "";
-    } else {
+function operate(x, oper, y) {
+    x = parseFloat(x);
+    y = parseFloat(y);
+    switch (oper) {
+        case "+":
+            return roundDisplay(add(x, y));
+            break;
+        case "-":
+            return roundDisplay(substract(x, y));
+            break;
+        case "*":
+            return roundDisplay(multiply(x, y));
+            break;
+        case "/":
+            if (y === 0) {
+                return "You...can't";
+            } else {
+                return roundDisplay(divide(x, y));
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+function add(x, y) {
+    return x + y;
+}
+
+function substract(x, y) {
+    return x - y;
+}
+
+function multiply (x, y) {
+    return x * y;
+}
+
+function divide(x, y) {
+    return x / y;
+}
+
+// DISPLAY
+
+let displayVal = "0";
+let display = document.querySelector('.display');
+let displayContent = document.createElement('p');
+displayContent.textContent = displayVal;
+display.appendChild(displayContent);
+
+function addToDisplay(digit) {
+    lastResult = "";
+    opSwitch = false;
+    if (displayVal === "0") {
+        if (digit === ".") {
+            displayVal = `0.`
+        } else {
+            displayVal = `${digit}`;
+            displayContent.textContent = displayVal;
+        }
+    } else if (displayVal.length > 10) {
         return;
-    }
-}
-
-let equalsBtn = document.querySelector('#equals');
-equalsBtn.addEventListener('click', equals);
-
-function del() {
-    if (displayVal.length === 1) {
-        displayVal = "0";
-        displayContent.textContent = displayVal;
+    } else if (displayVal.includes(".") && digit === ".") {
+        return;
     } else {
-        displayVal = displayVal.slice(0,-1);
+        displayVal = displayVal + digit;
         displayContent.textContent = displayVal;
     }
 }
 
-let delBtn = document.querySelector('#del');
-delBtn.addEventListener('click', del);
-
-const oneToNine = new RegExp('[1-9]');
-const zeroToNine = new RegExp('[0-9]');
-const operList = new RegExp('[\\+-/=\\*]');
+function clearDisplay() {
+    displayVal = "0";
+    displayContent.textContent = displayVal;
+    leftNum = "";
+    rightNum = "";
+    operator = "";
+}
 
 function roundDisplay(str) {
     let sureStr = str.toString();
@@ -181,6 +141,56 @@ function roundDisplay(str) {
         return sureStr;
     }
 }
+
+// CALCULATOR BUTTONS
+
+let digits = document.querySelectorAll('.digit');
+digits.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        addToDisplay(e.target.getAttribute('data-int'));
+    });
+});
+
+let opers = document.querySelectorAll('.oper');
+opers.forEach(btn => {
+    btn.addEventListener('click', (e) => {beginOp(e.target.getAttribute("data-oper"));});
+});
+
+let clear = document.querySelector('#clear');
+clear.addEventListener('click', clearDisplay);
+
+let equalsBtn = document.querySelector('#equals');
+equalsBtn.addEventListener('click', equals);
+
+function equals() {
+    if (operator != "" && opSwitch === false) {
+        rightNum = displayVal;
+        displayVal = operate(leftNum, operator, rightNum);
+        displayContent.textContent = displayVal;
+        lastResult = displayVal;
+        displayVal = "0";
+        operator = "";
+        leftNum = "";
+        rightNum = "";
+    } else {
+        return;
+    }
+}
+
+let delBtn = document.querySelector('#del');
+delBtn.addEventListener('click', del);
+
+function del() {
+    if (displayVal.length === 1) {
+        displayVal = "0";
+        displayContent.textContent = displayVal;
+    } else {
+        displayVal = displayVal.slice(0,-1);
+        displayContent.textContent = displayVal;
+    }
+}
+
+// KEYBOARD
 
 function keyPress(e) {
     const key = e.key
